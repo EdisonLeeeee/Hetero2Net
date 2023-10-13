@@ -1,0 +1,39 @@
+# Requirements
++ torch                    2.0.1
++ torch_geometric          2.4.0
++ torch-cluster            1.6.1+pt20cu117
++ torch-scatter            2.1.1+pt20cu117
++ torch-sparse             0.6.17+pt20cu117
++ torch-spline-conv        1.2.2+pt20cu117
++ texttable                1.6.7
++ CUDA 11.7
+
+# Reproduction
+
+## ACM
+- 94.00
+- 94.08
+python main.py --dataset ACM --epochs 100 --monitor loss --mask_lp --p 0.7
+
+## DBLP
+- 94.44
+- 93.96
+python main.py --dataset DBLP --dropout 0.5 --lr 0.001 --beta 0.2 --alpha 0.1
+
+
+## IMDB
+- 69.68
+- 65.48
+python main.py --dataset IMDB --alpha 0. --dropout 0.9 --lr 0.005  --mask_lp --p 0.6
+
+## OGB
+- 48.2
+python main.py --dataset MAG --num_neighbors 15 15 --beta 0.25 --hidden 256 --mini_batch --mask_lp --p 1.0
+
+## RCDD
+- 92.56
+- 98.54
+- 92.86
+python main.py --dataset RCDD --metrics ap micro-f1 macro-f1 --dropout 0.5 --epochs 100 --num_neighbors 15 15 --beta 0.25 --hidden 256 --mini_batch --mask_lp
+
+
