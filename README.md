@@ -11,29 +11,24 @@
 # Reproduction
 
 ## ACM
-- 94.00
-- 94.08
+
 python main.py --dataset ACM --epochs 100 --monitor loss --mask_lp --p 0.7
 
 ## DBLP
-- 94.44
-- 93.96
+
 python main.py --dataset DBLP --dropout 0.5 --lr 0.001 --beta 0.2 --alpha 0.1
 
 
 ## IMDB
-- 69.68
-- 65.48
+
 python main.py --dataset IMDB --alpha 0. --dropout 0.9 --lr 0.005  --mask_lp --p 0.6
 
 ## OGB
-- 48.2
+
 python main.py --dataset MAG --num_neighbors 15 15 --beta 0.25 --hidden 256 --mini_batch --mask_lp --p 1.0
 
 ## RCDD
-- 92.56
-- 98.54
-- 92.86
+
 python main.py --dataset RCDD --metrics ap micro-f1 macro-f1 --dropout 0.5 --epochs 100 --num_neighbors 15 15 --beta 0.25 --hidden 256 --mini_batch --mask_lp
 
 
