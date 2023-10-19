@@ -12,7 +12,7 @@ from torch_geometric.utils import sort_edge_index, index_to_mask
 # custom modules
 from logger import setup_logger
 from models import HeteroGNN
-from rcdd import RCDDataset
+from rcdd import RCDD
 from utils import (evaluate_full_batch,
                    evaluate_mini_batch,
                    train_full_batch,
@@ -88,12 +88,6 @@ if dataset == 'ACM':
                 [('author', 'paper'), ('paper', 'term'),
                  ('term', 'paper'), ('paper', 'author')],
     ]
-    # metapaths_to_add = [
-    #                     [('paper', 'author'), ('author', 'paper')],
-    #                     # [('paper', 'subject'), ('subject', 'paper')],
-    #                     # [('paper', 'term'), ('term', 'paper')]
-    # ]
-    # data = T.AddMetaPaths(metapaths_to_add, drop_orig_edge_types=False)(copy(data))
 elif dataset == 'DBLP':
     data = HGBDataset(root=f'{root}/HGBDataset', name='dblp')[0]
     data['venue'].x = torch.eye(data['venue'].num_nodes)
@@ -111,12 +105,6 @@ elif dataset == 'IMDB':
                 [('director', 'movie'), ('movie', 'actor')],
                 [('movie', 'keyword'), ('keyword', 'movie')],
     ]
-    # metapaths_to_add = [[('movie', 'director'), ('director', 'movie')],
-    #                     [('movie', 'actor'), ('actor', 'movie')],
-    #                     [('movie', 'keyword'), ('keyword', 'movie')],
-    #                    ]
-    # data = T.AddMetaPaths(metapaths_to_add, drop_orig_edge_types=False)(copy(data))
-
 elif dataset == 'FreeBase':
     data = HGBDataset(root=f'{root}/HGBDataset', name='freebase')[0]
     for nt in data.node_types:
@@ -133,15 +121,11 @@ elif dataset == 'MAG':
                  ('field_of_study', 'paper'), ('paper', 'author')],
     ]
 elif dataset == 'RCDD':
-    data = RCDDataset(f'{root}/RCDDataset')[0]
+    data = RCDD(f'{root}/RCDD')[0]
     metapaths = [
                 [('f', 'item'), ('item', 'b')],
                 [('b', 'item'), ('item', 'f')],
     ]
-
-#     metapaths_to_add = [[('item', 'f'), ('f', 'item')], [('item', 'b'), ('b', 'item')]]
-#     data = T.AddRandomMetaPaths(metapaths_to_add, drop_orig_edge_types=False)(copy(data))
-
 else:
     raise ValueError(dataset)
 
@@ -167,9 +151,9 @@ node_type = node_types[0]
 logger.info(f'Node type for classification: {node_type}')
 
 if dataset == 'FreeBase':
-    data = data.to(device, 'y')  # 预先放入显存
+    data = data.to(device, 'y')
 else:
-    data = data.to(device, 'x', 'y')  # 预先放入显存
+    data = data.to(device, 'x', 'y')
 
 if data[node_type].y.squeeze().ndim == 1:
     num_classes = data[node_type].y.max().item() + 1
