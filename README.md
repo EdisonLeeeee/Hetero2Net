@@ -19,20 +19,19 @@ Implementation of Hetero$^2$Net from the "Hetero$^2$Net: Heterophily-aware Repre
 
 # Reproduction
 
-## ACM
-python main.py --dataset ACM --epochs 100 --monitor loss --mask_lp --p 0.7
-
 ## DBLP
 python main.py --dataset DBLP --dropout 0.5 --lr 0.001 --beta 0.2 --alpha 0.1
 
-
 ## IMDB
-python main.py --dataset IMDB --alpha 0. --dropout 0.9 --lr 0.005  --mask_lp --p 0.6
+python main.py --dataset IMDB --dropout 0.9 --lr 0.005  --alpha 0.1 --mask_lp --p 0.6
+
+## ACM
+python main.py --dataset ACM --epochs 100 --monitor loss --mask_lp --p 0.7
 
 ## OGB
-python main.py --dataset MAG --num_neighbors 15 15 --beta 0.25 --hidden 256 --mini_batch --mask_lp --p 1.0
+python main.py --dataset MAG --num_neighbors 15 15 --hidden 256 --beta 0.2 --mini_batch --mask_lp --p 1.0
 
 ## RCDD
-python main.py --dataset RCDD --metrics ap micro-f1 macro-f1 --dropout 0.5 --epochs 100 --num_neighbors 15 15 --beta 0.25 --hidden 256 --mini_batch --mask_lp
+python main.py --dataset RCDD --metrics ap micro-f1 macro-f1 --dropout 0.5 --epochs 100 --num_neighbors 15 15 --hidden 256 --beta 0.2 --mini_batch --mask_lp
 
 
