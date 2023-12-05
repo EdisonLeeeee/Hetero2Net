@@ -29,7 +29,7 @@ parser.add_argument('--lr', type=float, default=0.005)
 parser.add_argument('--dropout', type=float, default=0.)
 parser.add_argument('--r', type=float, default=0.5)
 parser.add_argument('--alpha', type=float, default=0.2)
-parser.add_argument('--beta', type=float, default=0.5)
+parser.add_argument('--beta', type=float, default=0.4)
 parser.add_argument('--metrics', type=str, nargs='+',
                     default=["micro-f1", "macro-f1"])
 parser.add_argument("--monitor", type=str, default="metric")
